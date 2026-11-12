@@ -186,13 +186,13 @@ export function Projects() {
           <Reveal key={p.n}>
             <TiltCard>
               <div className={`grid gap-8 p-6 md:grid-cols-2 md:p-10 ${i % 2 ? "md:[&>*:first-child]:order-2" : ""}`}>
-                <Mockup kind={p.kind} />
+                <ShotGallery shots={p.shots} />
                 <div>
                   <p className="text-gradient font-mono text-5xl font-bold">{p.n}</p>
                   <h3 className="mt-2 text-2xl font-bold">{p.title}</h3>
                   <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{p.desc}</p>
                   <ul className="mt-4 grid grid-cols-2 gap-2 text-sm">{p.features.map(f => <li key={f} className="flex gap-2"><span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-accent" />{f}</li>)}</ul>
-                  {p.kind === "cinema" && (
+                  {p.qr && (
                     <div className="mt-5 flex items-center gap-4 rounded-2xl border border-accent/40 bg-accent/10 p-4">
                       <Ticket className="h-6 w-6 text-accent" /><ArrowUpRight className="h-4 w-4 text-muted-foreground" /><QrCode className="h-8 w-8 text-accent" />
                       <div><p className="text-sm font-semibold">QR-Based Digital Ticketing</p><p className="text-xs text-muted-foreground">Book → receive a QR ticket → scan for verification.</p></div>
