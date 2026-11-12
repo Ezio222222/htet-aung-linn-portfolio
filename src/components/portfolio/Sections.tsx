@@ -1,7 +1,14 @@
+import { useState } from "react";
 import { motion } from "framer-motion";
 import { Rocket, Layers, BrainCircuit, Puzzle, GraduationCap, MapPin, BookOpen, ExternalLink, QrCode, Ticket, Mail, ArrowUpRight, Monitor, Server, Database, Wrench } from "lucide-react";
 import { Reveal, SectionHeading } from "./ui";
 import { GithubIcon, TelegramIcon } from "./icons";
+import cinemaHome from "@/assets/cinema_home.png.asset.json";
+import cinemaPage1 from "@/assets/cinema_page1.png.asset.json";
+import cinemaPage2 from "@/assets/cinema_page2.png.asset.json";
+import townhubHome from "@/assets/townhub_home.png.asset.json";
+import townhubPage from "@/assets/townhub_page.png.asset.json";
+import townhubPage2 from "@/assets/townhub_page_2.png.asset.json";
 
 const container = "mx-auto max-w-6xl px-6 py-28";
 
@@ -102,37 +109,72 @@ function TiltCard({ children }: { children: React.ReactNode }) {
   );
 }
 
-function Mockup({ kind }: { kind: "cinema" | "town" }) {
+type Shot = { src: string; label: string; alt: string };
+
+function ShotGallery({ shots }: { shots: Shot[] }) {
+  const [active, setActive] = useState(0);
   return (
-    <div className="relative overflow-hidden rounded-2xl border border-border bg-muted/50">
-      <div className="flex gap-1.5 border-b border-border px-4 py-3"><span className="h-2.5 w-2.5 rounded-full bg-destructive/70" /><span className="h-2.5 w-2.5 rounded-full bg-accent/70" /><span className="h-2.5 w-2.5 rounded-full bg-primary/70" /></div>
-      <div className="aspect-[16/10] p-5 transition-transform duration-700 group-hover:scale-105">
-        {kind === "cinema" ? (
-          <div className="flex h-full flex-col gap-3">
-            <div className="flex gap-2">{[0,1,2,3].map(i => <div key={i} className="aspect-[2/3] flex-1 rounded-lg bg-gradient-to-b from-secondary/60 to-primary/30" />)}</div>
-            <div className="mx-auto h-1 w-2/3 rounded-full bg-accent/70" />
-            <div className="grid flex-1 grid-cols-10 gap-1">{Array.from({ length: 30 }).map((_, i) => <div key={i} className={`rounded-sm ${[4,5,14,15,22].includes(i) ? "bg-primary" : "bg-foreground/10"}`} />)}</div>
+    <div>
+      <div className="group relative overflow-hidden rounded-2xl border border-border bg-muted/50">
+        <div className="flex items-center justify-between gap-3 border-b border-border px-4 py-3">
+          <div className="flex gap-1.5">
+            <span className="h-2.5 w-2.5 rounded-full bg-destructive/70" />
+            <span className="h-2.5 w-2.5 rounded-full bg-accent/70" />
+            <span className="h-2.5 w-2.5 rounded-full bg-primary/70" />
           </div>
-        ) : (
-          <div className="flex h-full flex-col gap-3">
-            <div className="h-8 rounded-lg bg-foreground/10" />
-            <div className="grid flex-1 grid-cols-3 gap-2">{Array.from({ length: 6 }).map((_, i) => <div key={i} className="rounded-lg bg-gradient-to-br from-primary/40 to-accent/20 p-2"><div className="h-3 w-3 rounded-full bg-accent" /><div className="mt-2 h-1.5 w-2/3 rounded bg-foreground/30" /></div>)}</div>
-          </div>
-        )}
+          <span className="font-mono text-[11px] uppercase tracking-widest text-muted-foreground">{shots[active]?.label}</span>
+        </div>
+        <div className="relative aspect-[16/9] overflow-hidden">
+          {shots.map((s, i) => (
+            <img
+              key={s.src}
+              src={s.src}
+              alt={s.alt}
+              loading={i === 0 ? "eager" : "lazy"}
+              className={`absolute inset-0 h-full w-full object-cover object-top transition-all duration-500 ${i === active ? "scale-100 opacity-100" : "scale-105 opacity-0"} group-hover:scale-[1.03]`}
+            />
+          ))}
+        </div>
+      </div>
+      <div className="mt-3 flex flex-wrap gap-2">
+        {shots.map((s, i) => (
+          <button
+            key={s.src}
+            type="button"
+            onClick={() => setActive(i)}
+            aria-label={`Show ${s.label}`}
+            aria-pressed={i === active}
+            className={`relative h-12 w-20 overflow-hidden rounded-lg border transition-all hover:-translate-y-0.5 ${i === active ? "border-primary shadow-glow" : "border-border opacity-50 hover:opacity-90"}`}
+          >
+            <img src={s.src} alt="" loading="lazy" className="h-full w-full object-cover object-top" />
+          </button>
+        ))}
       </div>
     </div>
   );
 }
 
 const projects = [
-  { n: "01", kind: "cinema" as const, title: "Cinema – Online Booking System", url: "https://star-cinema.page.gd/src/index.html",
+  { n: "01", title: "Cinema – Online Booking System", url: "https://star-cinema.page.gd/src/index.html",
     desc: "An online cinema booking application designed to make discovering movies and booking cinema tickets easier. Users can explore available movies, view showtimes, select their preferred seats, and book tickets through a convenient interface.",
     features: ["Movie browsing", "Movie details and showtimes", "Cinema seat selection", "Online ticket booking", "QR-code ticket generation", "Digital ticket verification"],
-    tags: ["Web App", "Booking", "QR Tickets"] },
-  { n: "02", kind: "town" as const, title: "TownHub – Local Services Platform", url: "https://townhub.page.gd/src/index.html?i=1",
+    tags: ["Web App", "Booking", "QR Tickets"],
+    shots: [
+      { src: cinemaHome.url, label: "Home", alt: "Star Cinema home page with the headline Your Ultimate Cinema Experience and buttons to browse movies or check a booking" },
+      { src: cinemaPage1.url, label: "Now Showing", alt: "Star Cinema now showing page listing movies with a large featured movie banner and a book seat button" },
+      { src: cinemaPage2.url, label: "Seat Booking", alt: "Star Cinema seat booking screen with a colour-coded seat map, price zone legend and booking steps" },
+    ],
+    qr: true },
+  { n: "02", title: "TownHub – Local Services Platform", url: "https://townhub.page.gd/src/index.html?i=1",
     desc: "TownHub is a local services platform designed to connect people with useful services in their community. It provides an organized way to discover local services and explore available providers.",
     features: ["Local services discovery", "Organized service listings", "User-friendly interface", "Convenient access to local service information"],
-    tags: ["Web App", "Directory", "Community"] },
+    tags: ["Web App", "Directory", "Community"],
+    shots: [
+      { src: townhubHome.url, label: "Home", alt: "TownHub home page introducing Pyin Oo Lwin with a stack of destination cards such as Kandawgyi Garden" },
+      { src: townhubPage.url, label: "Tourist Guide", alt: "TownHub tourist guide page with search, category filters and a grid of attraction cards" },
+      { src: townhubPage2.url, label: "Culture & Heritage", alt: "TownHub culture and heritage page with a photo collage of local scenes" },
+    ],
+    qr: false },
 ];
 
 export function Projects() {
@@ -144,13 +186,13 @@ export function Projects() {
           <Reveal key={p.n}>
             <TiltCard>
               <div className={`grid gap-8 p-6 md:grid-cols-2 md:p-10 ${i % 2 ? "md:[&>*:first-child]:order-2" : ""}`}>
-                <Mockup kind={p.kind} />
+                <ShotGallery shots={p.shots} />
                 <div>
                   <p className="text-gradient font-mono text-5xl font-bold">{p.n}</p>
                   <h3 className="mt-2 text-2xl font-bold">{p.title}</h3>
                   <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{p.desc}</p>
                   <ul className="mt-4 grid grid-cols-2 gap-2 text-sm">{p.features.map(f => <li key={f} className="flex gap-2"><span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-accent" />{f}</li>)}</ul>
-                  {p.kind === "cinema" && (
+                  {p.qr && (
                     <div className="mt-5 flex items-center gap-4 rounded-2xl border border-accent/40 bg-accent/10 p-4">
                       <Ticket className="h-6 w-6 text-accent" /><ArrowUpRight className="h-4 w-4 text-muted-foreground" /><QrCode className="h-8 w-8 text-accent" />
                       <div><p className="text-sm font-semibold">QR-Based Digital Ticketing</p><p className="text-xs text-muted-foreground">Book → receive a QR ticket → scan for verification.</p></div>
