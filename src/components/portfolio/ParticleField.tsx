@@ -25,9 +25,9 @@ function Network() {
   useFrame((state, delta) => {
     const dt = Math.min(delta, 0.05) * 60;
     for (let i = 0; i < COUNT * 3; i++) {
-      pos[i] += vel[i]! * dt;
+      pos[i] = pos[i]! + vel[i]! * dt;
       const lim = i % 3 === 2 ? 3 : 7;
-      if (Math.abs(pos[i]!) > lim) vel[i] *= -1;
+      if (Math.abs(pos[i]!) > lim) vel[i] = -vel[i]!;
     }
     let n = 0;
     for (let a = 0; a < COUNT; a++) for (let b = a + 1; b < COUNT; b++) {
