@@ -25,18 +25,18 @@ function Network() {
   useFrame((state, delta) => {
     const dt = Math.min(delta, 0.05) * 60;
     for (let i = 0; i < COUNT * 3; i++) {
-      pos[i] += vel[i] * dt;
+      pos[i] += vel[i]! * dt;
       const lim = i % 3 === 2 ? 3 : 7;
-      if (Math.abs(pos[i]) > lim) vel[i] *= -1;
+      if (Math.abs(pos[i]!) > lim) vel[i] *= -1;
     }
     let n = 0;
     for (let a = 0; a < COUNT; a++) for (let b = a + 1; b < COUNT; b++) {
-      const dx = pos[a*3]-pos[b*3], dy = pos[a*3+1]-pos[b*3+1], dz = pos[a*3+2]-pos[b*3+2];
+      const dx = pos[a*3]!-pos[b*3]!, dy = pos[a*3+1]!-pos[b*3+1]!, dz = pos[a*3+2]!-pos[b*3+2]!;
       const d = Math.sqrt(dx*dx+dy*dy+dz*dz);
       if (d < LINK && n < linePos.length / 6) {
         const f = 1 - d / LINK;
-        linePos.set([pos[a*3],pos[a*3+1],pos[a*3+2],pos[b*3],pos[b*3+1],pos[b*3+2]], n*6);
-        const c = blue.clone().lerp(violet, (pos[a*3]+7)/14).multiplyScalar(f * 0.7);
+        linePos.set([pos[a*3]!,pos[a*3+1]!,pos[a*3+2]!,pos[b*3]!,pos[b*3+1]!,pos[b*3+2]!], n*6);
+        const c = blue.clone().lerp(violet, (pos[a*3]!+7)/14).multiplyScalar(f * 0.7);
         lineCol.set([c.r,c.g,c.b,c.r,c.g,c.b], n*6);
         n++;
       }
