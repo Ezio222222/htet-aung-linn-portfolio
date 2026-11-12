@@ -1,7 +1,14 @@
+import { useState } from "react";
 import { motion } from "framer-motion";
 import { Rocket, Layers, BrainCircuit, Puzzle, GraduationCap, MapPin, BookOpen, ExternalLink, QrCode, Ticket, Mail, ArrowUpRight, Monitor, Server, Database, Wrench } from "lucide-react";
 import { Reveal, SectionHeading } from "./ui";
 import { GithubIcon, TelegramIcon } from "./icons";
+import cinemaHome from "@/assets/cinema_home.png.asset.json";
+import cinemaPage1 from "@/assets/cinema_page1.png.asset.json";
+import cinemaPage2 from "@/assets/cinema_page2.png.asset.json";
+import townhubHome from "@/assets/townhub_home.png.asset.json";
+import townhubPage from "@/assets/townhub_page.png.asset.json";
+import townhubPage2 from "@/assets/townhub_page_2.png.asset.json";
 
 const container = "mx-auto max-w-6xl px-6 py-28";
 
