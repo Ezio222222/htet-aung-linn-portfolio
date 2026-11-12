@@ -41,12 +41,12 @@ function Network() {
         n++;
       }
     }
-    if (pts.current) pts.current.geometry.attributes.position.needsUpdate = true;
+    if (pts.current) pts.current.geometry.attributes["position"]!.needsUpdate = true;
     if (lines.current) {
       const g = lines.current.geometry;
       g.setDrawRange(0, n * 2);
-      g.attributes.position.needsUpdate = true;
-      g.attributes.color.needsUpdate = true;
+      g.attributes["position"]!.needsUpdate = true;
+      g.attributes["color"]!.needsUpdate = true;
     }
     if (group.current) {
       const { x, y } = state.pointer;
