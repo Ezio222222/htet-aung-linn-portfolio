@@ -221,7 +221,7 @@ export function Contact() {
   return (
     <section id="contact" className={container}>
       <SectionHeading eyebrow="05 — Contact" title="Let's Connect" subtitle="Have an idea, an interesting opportunity, or want to collaborate? I'd love to hear from you." />
-      <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="grid gap-5 sm:grid-cols-2">
         {contacts.map(({ Icon, label, value, href, external }, i) => (
           <Reveal key={label} delay={i * 0.1}>
             <a href={href} {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})} className="glass group flex h-full flex-col rounded-3xl p-6 transition-all hover:-translate-y-1 hover:border-primary/50 hover:shadow-glow">
