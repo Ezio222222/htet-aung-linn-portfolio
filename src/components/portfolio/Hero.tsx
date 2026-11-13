@@ -1,3 +1,4 @@
+import profileAsset from "@/assets/profile.jpg.asset.json";
 import { lazy, Suspense, useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { ArrowRight, Code2, Database, Atom, Smartphone, Terminal, Cpu } from "lucide-react";
@@ -34,15 +35,17 @@ export function Hero() {
             <a href="#contact" className="glass inline-flex items-center rounded-full px-6 py-3 font-semibold transition-colors hover:border-primary">Let's Connect</a>
           </div>
         </motion.div>
-        <motion.div initial={{ opacity: 0, scale: 0.85 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 1, delay: 0.2 }} className="relative mx-auto aspect-square w-64 md:w-80">
+        <motion.div initial={{ opacity: 0, scale: 0.85 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 1, delay: 0.2 }} className="relative mx-auto h-64 w-64 md:h-80 md:w-80">
           <div className="absolute inset-0 animate-spin-slow rounded-full bg-[conic-gradient(from_0deg,var(--primary),var(--secondary),var(--accent),var(--primary))] p-[2px] shadow-glow">
             <div className="h-full w-full rounded-full bg-background" />
           </div>
           <div className="glass absolute inset-3 grid place-items-center overflow-hidden rounded-full">
-            <div className="text-center">
-              <p className="text-gradient text-7xl font-extrabold">HAL</p>
-              <p className="mt-2 font-mono text-xs text-muted-foreground">{"<developer />"}</p>
-            </div>
+            <img
+              src={profileAsset.url}
+              alt="Portrait of Htet Aung Linn"
+              className="absolute inset-0 h-full w-full object-cover"
+              style={{ objectPosition: "center 16%" }}
+            />
           </div>
           {floating.map(({ Icon, cls }, i) => (
             <motion.div key={i} className={`glass absolute grid h-12 w-12 place-items-center rounded-xl text-primary ${cls}`}
