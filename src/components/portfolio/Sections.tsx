@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Rocket, Layers, BrainCircuit, Puzzle, GraduationCap, MapPin, BookOpen, ExternalLink, QrCode, Ticket, Mail, ArrowUpRight, Monitor, Server, Database, Wrench } from "lucide-react";
+import { Rocket, Layers, BrainCircuit, Puzzle, GraduationCap, MapPin, BookOpen, ExternalLink, QrCode, Ticket, Mail, Phone, ArrowUpRight, Monitor, Server, Database, Wrench } from "lucide-react";
 import { Reveal, SectionHeading } from "./ui";
 import { GithubIcon, TelegramIcon } from "./icons";
 import cinemaHome from "@/assets/cinema_home.png.asset.json";
@@ -211,19 +211,20 @@ export function Projects() {
 }
 
 const contacts = [
-  { Icon: TelegramIcon, label: "Telegram", value: "@ezio20", href: "https://t.me/ezio20" },
-  { Icon: GithubIcon, label: "GitHub", value: "Ezio222222", href: "https://github.com/Ezio222222" },
-  { Icon: Mail, label: "Gmail", value: "htetaunglinn681156692@gmail.com", href: "mailto:htetaunglinn681156692@gmail.com" },
+  { Icon: TelegramIcon, label: "Telegram", value: "@ezio20", href: "https://t.me/ezio20", external: true },
+  { Icon: GithubIcon, label: "GitHub", value: "Ezio222222", href: "https://github.com/Ezio222222", external: true },
+  { Icon: Mail, label: "Gmail", value: "htetaunglinn681156692@gmail.com", href: "mailto:htetaunglinn681156692@gmail.com", external: false },
+  { Icon: Phone, label: "Phone", value: "09674298011", href: "tel:+959674298011", external: false },
 ];
 
 export function Contact() {
   return (
     <section id="contact" className={container}>
       <SectionHeading eyebrow="05 — Contact" title="Let's Connect" subtitle="Have an idea, an interesting opportunity, or want to collaborate? I'd love to hear from you." />
-      <div className="grid gap-5 md:grid-cols-3">
-        {contacts.map(({ Icon, label, value, href }, i) => (
+      <div className="grid gap-5 sm:grid-cols-2">
+        {contacts.map(({ Icon, label, value, href, external }, i) => (
           <Reveal key={label} delay={i * 0.1}>
-            <a href={href} target="_blank" rel="noopener noreferrer" className="glass group flex h-full flex-col rounded-3xl p-6 transition-all hover:-translate-y-1 hover:border-primary/50 hover:shadow-glow">
+            <a href={href} {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})} className="glass group flex h-full flex-col rounded-3xl p-6 transition-all hover:-translate-y-1 hover:border-primary/50 hover:shadow-glow">
               <div className="flex items-center justify-between"><Icon className="h-8 w-8 text-primary" /><ArrowUpRight className="h-5 w-5 text-muted-foreground transition-transform group-hover:-translate-y-1 group-hover:translate-x-1 group-hover:text-accent" /></div>
               <p className="mt-6 font-semibold">{label}</p>
               <p className="mt-1 break-all text-sm text-muted-foreground">{value}</p>
