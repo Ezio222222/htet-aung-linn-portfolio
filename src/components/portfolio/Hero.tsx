@@ -1,3 +1,4 @@
+import profileAsset from "@/assets/profile.jpg.asset.json";
 import { lazy, Suspense, useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { ArrowRight, Code2, Database, Atom, Smartphone, Terminal, Cpu } from "lucide-react";
@@ -39,10 +40,12 @@ export function Hero() {
             <div className="h-full w-full rounded-full bg-background" />
           </div>
           <div className="glass absolute inset-3 grid place-items-center overflow-hidden rounded-full">
-            <div className="text-center">
-              <p className="text-gradient text-7xl font-extrabold">HAL</p>
-              <p className="mt-2 font-mono text-xs text-muted-foreground">{"<developer />"}</p>
-            </div>
+            <img
+              src={profileAsset.url}
+              alt="Portrait of Htet Aung Linn"
+              className="h-full w-full object-cover"
+              style={{ objectPosition: "center 16%" }}
+            />
           </div>
           {floating.map(({ Icon, cls }, i) => (
             <motion.div key={i} className={`glass absolute grid h-12 w-12 place-items-center rounded-xl text-primary ${cls}`}
